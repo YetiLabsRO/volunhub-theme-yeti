@@ -1,0 +1,17 @@
+{% extends "themes/yeti/publishing/base_site.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+<article class="yeti-card">
+    <header class="yeti-card-header">
+        <h1 class="yeti-title">{{ page.title }}</h1>
+    </header>
+    <div class="yeti-card-body yeti-prose static-body">
+        {% for block in page.body %}
+            {% include_block block %}
+        {% endfor %}
+    </div>
+</article>
+{% endblock %}

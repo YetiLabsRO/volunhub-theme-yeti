@@ -1,0 +1,104 @@
+{% extends "themes/yeti/publishing/base_site.html" %}
+{% load wagtailcore_tags wagtailimages_tags comments comments_xtd %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+<article class="yeti-card">
+    {% if page.featured_image %}
+        {% image page.featured_image fill-825x510 as featured %}
+        <div class="yeti-thumb"><img src="{{ featured.url }}" width="{{ featured.width }}" height="{{ featured.height }}" alt=""></div>
+    {% endif %}
+    <header class="yeti-card-header">
+        <h1 class="yeti-title">{{ page.title }}</h1>
+        {% if page.excerpt %}<p class="yeti-excerpt">{{ page.excerpt }}</p>{% endif %}
+    </header>
+
+    {% if page.event %}
+        <aside class="yeti-card-body yeti-event">
+            <strong>Eveniment:</strong> {{ page.event.name }}
+            {% if page.event.start_date %} — {{ page.event.start_date|date:"j F Y" }}{% endif %}
+        </aside>
+    {% endif %}
+
+    <div class="yeti-card-body yeti-prose article-body">
+        {% for block in page.body %}
+            {% include_block block %}
+        {% endfor %}
+    </div>
+
+    {% if page.tags.all or page.sdgs.all %}
+    <div class="yeti-card-body yeti-tags">
+        {% if page.tags.all %}
+            <span class="yeti-tags-label">Etichete:</span>
+            {% for tag in page.tags.all %}<span class="yeti-tag">{{ tag.name }}</span>{% endfor %}
+        {% endif %}
+        {% if page.sdgs.all %}
+            <span class="yeti-tags-label">SDG-uri:</span>
+            {% for sdg in page.sdgs.all %}
+                <span class="yeti-tag" style="background-color: #{{ sdg.color }}; color: #fff;">{{ sdg.code }}</span>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <footer class="yeti-card-meta">
+        <time datetime="{{ page.first_published_at|date:'c' }}">{{ page.first_published_at|date:"j F Y" }}</time>
+        {% if page.category %} · <span>{{ page.category.name }}</span>{% endif %}
+    </footer>
+</article>
+
+{% with within=page.recommended_within_site cross=page.recommended_cross_site %}
+{% if within or cross %}
+<section class="yeti-card yeti-related" aria-labelledby="yeti-related-title">
+    <div class="yeti-card-body">
+        {% if within %}
+            <h2 class="yeti-section-title" id="yeti-related-title">Articole similare</h2>
+            <ul class="yeti-related-list">
+                {% for rec in within %}
+                    <li>
+                        <a href="{% pageurl rec %}">{{ rec.title }}</a>
+                        {% if rec.excerpt %}<p>{{ rec.excerpt|truncatechars:140 }}</p>{% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if cross %}
+            <h2 class="yeti-section-title">Din rețea</h2>
+            <ul class="yeti-related-list">
+                {% for rec in cross %}
+                    <li>
+                        <a href="{{ rec.full_url }}">{{ rec.title }}</a>
+                        {% with rec_site=rec.get_site %}{% if rec_site %}<span class="yeti-related-host">{{ rec_site.hostname }}</span>{% endif %}{% endwith %}
+                        {% if rec.excerpt %}<p>{{ rec.excerpt|truncatechars:140 }}</p>{% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+{% endwith %}
+
+{% if page.effective_comments_enabled %}
+<section class="yeti-card yeti-comments" id="comments" aria-labelledby="yeti-comments-title">
+    <div class="yeti-card-body">
+        <h2 class="yeti-section-title" id="yeti-comments-title">Comentarii</h2>
+
+        {% get_comment_count for page as comment_count %}
+        {% if comment_count %}
+            <p class="yeti-muted">{{ comment_count }} comentari{{ comment_count|pluralize:"u,i" }}</p>
+        {% else %}
+            <p class="yeti-muted">Niciun comentariu încă. Lasă tu primul comentariu.</p>
+        {% endif %}
+
+        {% render_xtdcomment_tree for page %}
+
+        <h3 class="yeti-section-subtitle">Lasă un comentariu</h3>
+        {% render_comment_form for page %}
+
+        <p class="yeti-muted yeti-small">Comentariile sunt moderate. Verifică-ți email-ul pentru a confirma comentariul.</p>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

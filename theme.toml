@@ -1,0 +1,80 @@
+name = "Blogu' lu' Yeti"
+slug = "yeti"
+version = "0.1.0"
+description = "Tema site-ului personal yeti.albascout.ro: bară laterală cu logo, fundal închis, articole pe carduri albe (după Twenty Fifteen)."
+author = "Andrei Avram"
+homepage = "https://github.com/YetiLabsRO/volunhub-theme-yeti"
+license = "proprietary"
+
+# Arhetipurile pe care tema le acoperă. `blog` = pagina principală este un flux de
+# articole; `info` = site informativ cu pagini statice.
+supports_archetypes = ["blog", "info"]
+
+# Scara vizuală a temei, emisă ca proprietăți CSS `--vh-*` (vezi `base_site.html`:
+# `{{ cfg.tokens_css }}`).
+[tokens]
+groups = ["color", "spacing", "radius"]
+
+[tokens.defaults]
+accent = "#333333"
+accent-hover = "#333333"
+accent-light = "#f4f7f4"
+surface = "#ffffff"
+surface-muted = "#f3f4f6"
+spacer-4 = "1rem"
+spacer-5 = "1.5rem"
+spacer-6 = "2.5rem"
+border-radius = "0.5rem"
+border-radius-lg = "1rem"
+
+[capabilities]
+sidebar = false
+multi_column = true
+footer_columns = 0
+breadcrumbs = false
+
+[menu_locations.main]
+label = "Navigație principală"
+description = "Lista de linkuri din bara laterală (pe telefon, din meniul de sus)."
+
+# Valori configurabile per-site (Site.theme_config), citite în șabloane cu
+# `{% get_theme_config as cfg %}` și `cfg.<cheie>`.
+[config_schema.site_title]
+section = "Identitate"
+type = "string"
+label = "Titlu site"
+help_text = "Numele afișat în bara laterală și în titlul paginilor."
+default = "Blogu' lu' Yeti"
+
+[config_schema.tagline]
+section = "Identitate"
+type = "string"
+label = "Slogan"
+help_text = "Text scurt afișat sub titlu (opțional)."
+default = "hic sunt dracones"
+
+[config_schema.logo]
+section = "Identitate"
+type = "image"
+label = "Logo"
+help_text = "Logo-ul din bara laterală. Dacă lipsește, se folosește copacul implicit al temei."
+
+[config_schema.background_color]
+section = "Culori"
+type = "color"
+label = "Culoarea fundalului"
+help_text = "Fundalul din jurul cardurilor albe (implicit #141414)."
+default = "#141414"
+
+[config_schema.show_search]
+section = "Bara laterală"
+type = "boolean"
+label = "Afișează căsuța de căutare"
+help_text = "Căutarea se face prin DuckDuckGo, limitată la acest site."
+default = true
+
+[config_schema.contact_email]
+section = "Contact"
+type = "string"
+label = "Email de contact"
+help_text = "Afișat în subsol (opțional)."

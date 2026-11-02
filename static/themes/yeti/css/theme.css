@@ -1,0 +1,370 @@
+/* Tema „Blogu' lu' Yeti" — după Twenty Fifteen. Mobile-first; bara laterală fixă de la 60em. */
+
+:root {
+    --yeti-bg: #141414;
+    --yeti-ink: #333;
+    --yeti-muted: #686868;
+    --yeti-rule: #eaeaea;
+    --yeti-serif: "Lora", Georgia, "Times New Roman", serif;
+    --yeti-sans: "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+    --yeti-title: "Encode Sans Condensed", "Noto Sans", Arial, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body.yeti-site {
+    background: var(--yeti-bg);
+    color: var(--yeti-ink);
+    font-family: var(--yeti-serif);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+.yeti-site a { color: inherit; }
+.yeti-site a:focus-visible,
+.yeti-site button:focus-visible,
+.yeti-site input:focus-visible {
+    outline: 3px solid #1a73e8;
+    outline-offset: 2px;
+}
+
+.yeti-skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    padding: 0.75rem 1rem;
+    font-family: var(--yeti-sans);
+}
+.yeti-skip-link:focus { left: 0.5rem; top: 0.5rem; }
+
+/* ---------- Bara laterală / antet ---------- */
+
+.yeti-sidebar {
+    background: #fff;
+    position: relative;
+    border-bottom: 1px solid var(--yeti-rule);
+}
+
+.yeti-branding {
+    position: relative;
+    padding: 1.5rem 1.5rem 1rem;
+    min-height: 5.75rem;
+}
+
+.yeti-logo-link { display: inline-block; line-height: 0; }
+.yeti-logo { width: 70px; height: auto; max-width: 100%; }
+
+.yeti-site-title {
+    margin: 0.75rem 0 0;
+    font-family: var(--yeti-sans);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+.yeti-site-title a { text-decoration: none; color: var(--yeti-ink); }
+
+.yeti-tagline {
+    margin: 0.25rem 0 0;
+    font-family: var(--yeti-sans);
+    font-size: 0.9rem;
+    color: var(--yeti-muted);
+    display: none;
+}
+
+.yeti-toggle {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    background: #fff;
+    border: 1px solid var(--yeti-rule);
+    border-radius: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.yeti-toggle:hover { background: #f7f7f7; }
+.yeti-toggle-bars,
+.yeti-toggle-bars::before,
+.yeti-toggle-bars::after {
+    display: block;
+    width: 1.1rem;
+    height: 2px;
+    background: var(--yeti-ink);
+    content: "";
+    position: relative;
+}
+.yeti-toggle-bars::before { position: absolute; top: -6px; left: 0; }
+.yeti-toggle-bars::after { position: absolute; top: 6px; left: 0; }
+
+.yeti-secondary { display: none; padding: 0 1.5rem 1.5rem; }
+.yeti-sidebar.is-open .yeti-secondary { display: block; }
+.yeti-sidebar.is-open .yeti-tagline { display: block; }
+
+.yeti-nav ul { list-style: none; margin: 0; padding: 0; }
+.yeti-nav > ul { border-top: 1px solid var(--yeti-rule); }
+.yeti-nav li { border-bottom: 1px solid var(--yeti-rule); }
+.yeti-nav li li { border-bottom: 0; }
+.yeti-nav a,
+.yeti-nav span {
+    display: block;
+    padding: 0.6rem 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-decoration: none;
+    color: var(--yeti-ink);
+}
+.yeti-nav a:hover { text-decoration: underline; }
+.yeti-nav li li a { padding-left: 1rem; font-size: 0.9rem; }
+
+.yeti-widget { margin-top: 2rem; }
+.yeti-widget-title {
+    margin: 0 0 0.75rem;
+    font-family: var(--yeti-sans);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+.yeti-search input[type="search"] {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--yeti-rule);
+    border-radius: 0;
+    background: #fff;
+    font-family: var(--yeti-serif);
+    font-size: 1rem;
+    color: var(--yeti-ink);
+}
+
+/* ---------- Cărți (carduri) ---------- */
+
+.yeti-content-area { min-width: 0; }
+.yeti-main { outline: none; }
+
+.yeti-card {
+    background: #fff;
+    margin: 0 0 2rem;
+}
+.yeti-thumb { display: block; line-height: 0; }
+.yeti-thumb img { width: 100%; height: auto; display: block; }
+
+.yeti-card-header { padding: 7.6923% 7.6923% 0; }
+.yeti-intro .yeti-card-body { padding-top: 7.6923%; }
+.yeti-card-body { padding: 0 7.6923%; }
+.yeti-card-body:last-child { padding-bottom: 7.6923%; }
+.yeti-card-body + .yeti-card-body { padding-top: 1rem; }
+
+.yeti-title {
+    margin: 0 0 1.5rem;
+    font-family: var(--yeti-title);
+    font-weight: 700;
+    font-size: 1.9rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--yeti-ink);
+}
+.yeti-title a { text-decoration: none; }
+.yeti-title a:hover { text-decoration: underline; }
+
+.yeti-excerpt {
+    margin: -0.5rem 0 1.5rem;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--yeti-muted);
+}
+
+.yeti-prose {
+    font-size: 1.1875rem;
+    line-height: 1.6842;
+    overflow-wrap: break-word;
+}
+.yeti-prose > :last-child { margin-bottom: 0; }
+.yeti-prose p,
+.yeti-prose ul,
+.yeti-prose ol,
+.yeti-prose blockquote,
+.yeti-prose figure { margin: 0 0 1.5em; }
+.yeti-prose a {
+    text-decoration: none;
+    box-shadow: 0 1px 0 0 currentColor;
+}
+.yeti-prose a:hover { box-shadow: none; text-decoration: underline; }
+.yeti-prose img,
+.yeti-prose video,
+.yeti-prose iframe { max-width: 100%; height: auto; }
+.yeti-prose h2,
+.yeti-prose h3,
+.yeti-prose h4 {
+    font-family: var(--yeti-sans);
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 2rem 0 1rem;
+}
+.yeti-prose h2 { font-size: 1.5rem; }
+.yeti-prose h3 { font-size: 1.25rem; }
+.yeti-prose blockquote {
+    border-left: 4px solid var(--yeti-ink);
+    padding-left: 1.25rem;
+    font-style: italic;
+}
+.yeti-prose figcaption,
+.yeti-prose .figure-caption { font-size: 0.85rem; color: var(--yeti-muted); }
+
+.yeti-more { font-family: var(--yeti-sans); font-size: 0.9rem; font-weight: 700; }
+
+.yeti-card-meta {
+    margin-top: 1.5rem;
+    padding: 1rem 7.6923%;
+    border-top: 1px solid var(--yeti-rule);
+    font-family: var(--yeti-sans);
+    font-size: 0.8125rem;
+    color: var(--yeti-muted);
+}
+.yeti-card-header + .yeti-card-body { padding-top: 0; }
+
+.yeti-event { font-family: var(--yeti-sans); font-size: 0.95rem; }
+
+.yeti-tags { font-family: var(--yeti-sans); font-size: 0.8125rem; }
+.yeti-tags-label { font-weight: 700; margin-right: 0.35rem; }
+.yeti-tag {
+    display: inline-block;
+    margin: 0 0.35rem 0.35rem 0;
+    padding: 0.1rem 0.55rem;
+    background: #f1f1f1;
+    color: var(--yeti-ink);
+}
+
+.yeti-section-title {
+    margin: 0 0 1rem;
+    padding-top: 7.6923%;
+    font-family: var(--yeti-title);
+    font-weight: 700;
+    font-size: 1.6rem;
+}
+.yeti-card-body > .yeti-section-title:first-child { padding-top: 0; }
+.yeti-comments .yeti-card-body,
+.yeti-related .yeti-card-body { padding-top: 7.6923%; }
+.yeti-section-subtitle {
+    margin: 2rem 0 1rem;
+    font-family: var(--yeti-sans);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+.yeti-related .yeti-section-title { padding-top: 0; }
+.yeti-related-list { list-style: none; margin: 0 0 1.5rem; padding: 0; }
+.yeti-related-list li { margin-bottom: 1rem; }
+.yeti-related-list p { margin: 0; font-size: 0.95rem; color: var(--yeti-muted); }
+.yeti-related-host { margin-left: 0.5rem; font-family: var(--yeti-sans); font-size: 0.8rem; color: var(--yeti-muted); }
+
+.yeti-muted { color: var(--yeti-muted); }
+.yeti-small { font-size: 0.85rem; }
+
+/* Comentarii (marcajul vine de la platformă, django-comments-xtd) */
+.yeti-comments { font-family: var(--yeti-serif); font-size: 1rem; }
+.yeti-comments .comment,
+.yeti-comments .media { border-bottom: 1px solid var(--yeti-rule); padding: 0.75rem 0; }
+.yeti-comments .list-unstyled { padding-left: 0; }
+.yeti-comments .media-body,
+.yeti-comments .comment { overflow-wrap: anywhere; }
+.yeti-comments h6,
+.yeti-comments .small { font-family: var(--yeti-sans); }
+.yeti-comments label { font-family: var(--yeti-sans); font-size: 0.875rem; font-weight: 700; }
+.yeti-comments input[type="text"],
+.yeti-comments input[type="email"],
+.yeti-comments input[type="url"],
+.yeti-comments textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    padding: 0.5rem 0.75rem;
+    font-family: var(--yeti-serif);
+}
+.yeti-comments input[type="submit"],
+.yeti-comments button[type="submit"],
+.yeti-comments .btn-primary {
+    background: var(--yeti-ink);
+    border: 0;
+    border-radius: 0;
+    color: #fff;
+    padding: 0.6rem 1.25rem;
+    font-family: var(--yeti-sans);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.yeti-comments .btn-secondary { border-radius: 0; }
+
+/* ---------- Paginare ---------- */
+
+.yeti-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem 1.5rem;
+    background: #fff;
+    font-family: var(--yeti-sans);
+    font-size: 0.9rem;
+}
+.yeti-page-link { font-weight: 700; text-decoration: none; }
+.yeti-page-link:hover { text-decoration: underline; }
+
+/* ---------- Subsol ---------- */
+
+.yeti-footer {
+    background: #fff;
+    padding: 1.25rem 1.5rem;
+    font-family: var(--yeti-sans);
+    font-size: 0.8125rem;
+    color: var(--yeti-muted);
+}
+.yeti-footer p { margin: 0; }
+
+/* ---------- Desktop: bara laterală fixă ---------- */
+
+@media (min-width: 60em) {
+    .yeti-sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 29.4118%;
+        overflow-y: auto;
+        border-bottom: 0;
+        padding: 5rem 5rem 2rem;
+    }
+    .yeti-branding { padding: 0; min-height: 0; }
+    .yeti-logo { width: 240px; }
+    .yeti-site-title { margin-top: 1.5rem; font-size: 1.375rem; }
+    .yeti-tagline { display: block; font-size: 1rem; margin-top: 0.4rem; }
+    .yeti-toggle { display: none; }
+    .yeti-secondary { display: block; padding: 0; margin-top: 4rem; }
+    .yeti-widget { margin-top: 3.5rem; }
+
+    .yeti-content-area { margin-left: 29.4118%; padding: 5rem 5rem 0; }
+    .yeti-card { margin-bottom: 5rem; }
+    .yeti-card-header { padding: 7.6923% 10% 0; }
+    .yeti-card-body { padding: 0 10%; }
+    .yeti-card-body:last-child { padding-bottom: 7.6923%; }
+    .yeti-card-meta { padding: 1rem 10%; }
+    .yeti-title { font-size: 2.4375rem; margin-bottom: 2rem; }
+    .yeti-footer { margin: 0 -5rem; padding: 1.5rem 5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+}
+
+/* Subsolul rămâne jos și pe paginile scurte */
+.yeti-page { min-height: 100vh; display: flex; flex-direction: column; }
+.yeti-content-area { flex: 1; display: flex; flex-direction: column; }
+.yeti-main { flex: 1; }

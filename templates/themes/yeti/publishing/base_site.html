@@ -1,0 +1,121 @@
+{% load static publishing_tags wagtailcore_tags wagtailimages_tags %}
+{% get_publishing_site as publishing_site %}
+{% get_theme_config as cfg %}
+{% comment %}derive_from_pages: with no menu authored and none assigned, the sidebar
+falls back to the site's own top-level pages, so a fresh site is never left
+without navigation.{% endcomment %}
+{% get_site_menu "main" derive_from_pages=True as nav_menu %}
+<!doctype html>
+<html lang="{% if page.locale %}{{ page.locale.language_code }}{% else %}ro{% endif %}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}{{ page.title }}{% endblock %}{% firstof cfg.site_title "Blogu' lu' Yeti" as site_title %} — {{ site_title }}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'themes/yeti/css/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'themes/yeti/css/theme.css' %}">
+    <style>
+        :root {
+            {{ cfg.tokens_css }}
+            --yeti-bg: {{ cfg.background_color|default:"#141414" }};
+        }
+    </style>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="yeti-site">
+
+{% block preview_banner %}{% include "publishing/_theme_preview_banner.html" %}{% endblock %}
+
+<a class="yeti-skip-link" href="#yeti-content">Sari la conținut</a>
+
+<div class="yeti-page">
+    {% block site_header %}
+    <div class="yeti-sidebar" id="yeti-sidebar">
+        <header class="yeti-branding">
+            <a class="yeti-logo-link" href="/" rel="home" aria-label="{% firstof cfg.site_title "Blogu' lu' Yeti" %} — pagina principală">
+                {% if cfg.logo_image %}
+                    {% image cfg.logo_image max-400x400 alt="" class="yeti-logo" %}
+                {% else %}
+                    <img class="yeti-logo" src="{% static 'themes/yeti/img/logo.png' %}" alt="" width="248" height="248">
+                {% endif %}
+            </a>
+            <p class="yeti-site-title"><a href="/" rel="home">{% firstof cfg.site_title "Blogu' lu' Yeti" %}</a></p>
+            {% firstof cfg.tagline "hic sunt dracones" as tagline %}
+            {% if tagline %}<p class="yeti-tagline">{{ tagline }}</p>{% endif %}
+
+            <button class="yeti-toggle" type="button" aria-controls="yeti-secondary" aria-expanded="false">
+                <span class="yeti-toggle-bars" aria-hidden="true"></span>
+                <span class="visually-hidden">Meniu</span>
+            </button>
+        </header>
+
+        <div class="yeti-secondary" id="yeti-secondary">
+            {% if nav_menu.links %}
+            <nav class="yeti-nav" aria-label="Navigație principală">
+                <ul>
+                    {% for item in nav_menu.links %}
+                        <li>
+                            {% if item.url %}
+                            <a href="{{ item.url }}"{% if item.open_in_new_tab %} target="_blank" rel="noopener"{% endif %}>{{ item.label }}</a>
+                            {% else %}
+                            <span>{{ item.label }}</span>
+                            {% endif %}
+                            {% if item.has_children %}
+                            <ul>
+                                {% for child in item.children %}
+                                <li><a href="{{ child.url }}"{% if child.open_in_new_tab %} target="_blank" rel="noopener"{% endif %}>{{ child.label }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            {% endif %}
+
+            {% if cfg.show_search is not False %}
+            <div class="yeti-widget">
+                <h2 class="yeti-widget-title">Caută</h2>
+                <form role="search" method="get" action="https://duckduckgo.com/" class="yeti-search">
+                    <input type="hidden" name="sites" value="{{ request.get_host }}">
+                    <label class="visually-hidden" for="yeti-search-field">Caută după:</label>
+                    <input id="yeti-search-field" type="search" name="q" placeholder="Căutare…" autocomplete="off">
+                    <button type="submit" class="visually-hidden">Caută</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+
+    <div class="yeti-content-area">
+        <main id="yeti-content" class="yeti-main" tabindex="-1">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="yeti-footer">
+            <p>
+                © {% now "Y" %} {% firstof cfg.site_title "Blogu' lu' Yeti" %}
+                {% if cfg.contact_email %} · <a href="mailto:{{ cfg.contact_email }}">{{ cfg.contact_email }}</a>{% endif %}
+            </p>
+        </footer>
+    </div>
+</div>
+
+<script>
+(function () {
+    var toggle = document.querySelector(".yeti-toggle");
+    var sidebar = document.getElementById("yeti-sidebar");
+    if (!toggle || !sidebar) { return; }
+    toggle.addEventListener("click", function () {
+        var open = sidebar.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+})();
+</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>
