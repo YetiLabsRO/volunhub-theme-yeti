@@ -76,13 +76,12 @@ without navigation.{% endcomment %}
             </nav>
             {% endif %}
 
-            {% if cfg.show_search is not False %}
+            {% if cfg.show_search %}
             <div class="yeti-widget">
                 <h2 class="yeti-widget-title">Caută</h2>
-                <form role="search" method="get" action="https://duckduckgo.com/" class="yeti-search">
-                    <input type="hidden" name="sites" value="{{ request.get_host }}">
+                <form role="search" method="get" action="/cautare/" class="yeti-search">
                     <label class="visually-hidden" for="yeti-search-field">Caută după:</label>
-                    <input id="yeti-search-field" type="search" name="q" placeholder="Căutare…" autocomplete="off">
+                    <input id="yeti-search-field" type="search" name="q" value="{{ query|default:'' }}" placeholder="Căutare…" autocomplete="off" maxlength="200">
                     <button type="submit" class="visually-hidden">Caută</button>
                 </form>
             </div>

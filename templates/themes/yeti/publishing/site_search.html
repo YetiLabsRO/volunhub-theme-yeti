@@ -1,0 +1,42 @@
+{% extends "themes/yeti/publishing/base_site.html" %}
+{% load wagtailcore_tags %}
+{% comment %}The platform's search page (/cautare/, publishing.site_search_views) in this theme's card.
+Context: query, page_obj (the results page), result_count.{% endcomment %}
+
+{% block title %}{% if query %}Căutare: {{ query }}{% else %}Căutare{% endif %}{% endblock %}
+
+{% block extra_head %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<article class="yeti-card">
+    <header class="yeti-card-header">
+        <h1 class="yeti-title">{% if query %}Rezultate pentru „{{ query }}”{% else %}Căutare{% endif %}</h1>
+    </header>
+    <div class="yeti-card-body yeti-prose">
+        {% if query %}
+            {% if result_count %}
+                <p class="yeti-search-meta">{{ result_count }} rezultat{{ result_count|pluralize:",e" }}</p>
+                {% for result in page_obj %}
+                    <section class="yeti-search-result">
+                        <h2><a href="{% pageurl result %}">{{ result.title }}</a></h2>
+                        {% if result.excerpt %}<p>{{ result.excerpt|truncatechars:240 }}</p>
+                        {% elif result.search_description %}<p>{{ result.search_description|truncatechars:240 }}</p>{% endif %}
+                        {% if result.first_published_at %}<p class="yeti-search-meta">{{ result.first_published_at|date:"j F Y" }}</p>{% endif %}
+                    </section>
+                {% endfor %}
+                {% if page_obj.has_other_pages %}
+                    <nav class="yeti-pagination" aria-label="Paginare rezultate">
+                        {% if page_obj.has_previous %}<a href="?q={{ query|urlencode }}&amp;pagina={{ page_obj.previous_page_number }}">‹ Anterioară</a>{% endif %}
+                        <span>{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+                        {% if page_obj.has_next %}<a href="?q={{ query|urlencode }}&amp;pagina={{ page_obj.next_page_number }}">Următoare ›</a>{% endif %}
+                    </nav>
+                {% endif %}
+            {% else %}
+                <p>Nu am găsit nimic pentru „{{ query }}”. Încearcă alte cuvinte.</p>
+            {% endif %}
+        {% else %}
+            <p>Scrie un cuvânt în căsuța de căutare.</p>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}

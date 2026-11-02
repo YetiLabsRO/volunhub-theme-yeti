@@ -70,8 +70,8 @@ default = "#141414"
 section = "Bara laterală"
 type = "boolean"
 label = "Afișează căsuța de căutare"
-help_text = "Căutarea se face prin DuckDuckGo, limitată la acest site."
-default = true
+help_text = "Căutarea paginilor site-ului (/cautare/). Pornește-o după ce platforma are pagina de căutare."
+default = false
 
 [config_schema.contact_email]
 section = "Contact"
