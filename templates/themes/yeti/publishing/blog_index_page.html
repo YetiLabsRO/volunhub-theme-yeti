@@ -35,7 +35,7 @@
                 </div>
                 <p><a class="yeti-more vh-read-more" href="{% pageurl article %}#mai-mult">Citește mai mult<span class="visually-hidden">: {{ article.title }}</span></a></p>
             {% else %}
-                {% if article.excerpt %}<p>{{ article.excerpt }}</p>{% endif %}
+                {% if article.excerpt %}<div class="{% if article.drop_cap %}vh-drop-cap{% endif %}"><p>{{ article.excerpt }}</p></div>{% endif %}
                 <p><a class="yeti-more" href="{% pageurl article %}">Citește mai mult<span class="visually-hidden">: {{ article.title }}</span></a></p>
             {% endif %}
         </div>
