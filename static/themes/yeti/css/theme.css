@@ -227,10 +227,10 @@ body.yeti-site {
 .vh-drop-cap > p:first-of-type::first-letter {
     float: left;
     font-family: var(--yeti-serif);
-    font-size: 3.6em;
+    font-size: 4.9em;
     font-weight: 700;
-    line-height: 0.85;
-    margin: 0.06em 0.08em 0 0;
+    line-height: 0.8;
+    margin: 0.04em 0.08em 0 0;
     color: var(--yeti-ink);
 }
 .vh-drop-cap > p:first-of-type::after { content: ""; display: table; clear: both; }
