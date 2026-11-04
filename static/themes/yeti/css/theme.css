@@ -218,6 +218,22 @@ body.yeti-site {
 .yeti-prose .figure-caption { font-size: 0.85rem; color: var(--yeti-muted); }
 
 .yeti-more { font-family: var(--yeti-sans); font-size: 0.9rem; font-weight: 700; }
+.yeti-more::after { content: " →"; }
+
+/* The list shows a post up to its „Citește mai mult” cut (the platform's teaser). */
+.vh-teaser > :last-child { margin-bottom: 1em; }
+
+/* „Literă inițială mare”: the first letter of the first paragraph, three lines tall. */
+.vh-drop-cap > p:first-of-type::first-letter {
+    float: left;
+    font-family: var(--yeti-serif);
+    font-size: 3.6em;
+    font-weight: 700;
+    line-height: 0.85;
+    margin: 0.06em 0.08em 0 0;
+    color: var(--yeti-ink);
+}
+.vh-drop-cap > p:first-of-type::after { content: ""; display: table; clear: both; }
 
 .yeti-card-meta {
     margin-top: 1.5rem;

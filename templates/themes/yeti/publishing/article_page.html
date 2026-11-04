@@ -21,7 +21,7 @@
         </aside>
     {% endif %}
 
-    <div class="yeti-card-body yeti-prose article-body">
+    <div class="yeti-card-body yeti-prose article-body{% if page.drop_cap %} vh-drop-cap{% endif %}">
         {% for block in page.body %}
             {% include_block block %}
         {% endfor %}
