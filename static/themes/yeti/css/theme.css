@@ -375,14 +375,25 @@ body.yeti-site {
     .yeti-secondary { display: block; padding: 0; margin-top: 4rem; }
     .yeti-widget { margin-top: 3.5rem; }
 
-    .yeti-content-area { margin-left: 29.4118%; padding: 5rem 5rem 0; }
+    /* Twenty Fifteen's proportions: the posts take 58.8235% of the page, with 5.8824% on either side. */
+    .yeti-content-area { margin-left: 29.4118%; padding: 5.8824% 5.8824% 0; }
     .yeti-card { margin-bottom: 5rem; }
     .yeti-card-header { padding: 7.6923% 10% 0; }
     .yeti-card-body { padding: 0 10%; }
     .yeti-card-body:last-child { padding-bottom: 7.6923%; }
     .yeti-card-meta { padding: 1rem 10%; }
     .yeti-title { font-size: 2.4375rem; margin-bottom: 2rem; }
-    .yeti-footer { margin: 0 -5rem; padding: 1.5rem 5rem; }
+    /* The footer is a card-wide strip in the posts' column, never under the fixed sidebar. */
+    .yeti-footer { padding: 1.5rem 0; }
+    .yeti-footer p { margin: 0 10%; }
+}
+
+/* Wide screens: the layout stops at 1403px, as Twenty Fifteen's does — the sidebar panel reaches the
+   left edge, its content stays in the 412px next to the posts, and the posts stop at 825px. */
+@media (min-width: 87.6875em) {
+    .yeti-sidebar { width: calc(50% - 289px); padding-left: calc(50% - 621.5px); }
+    .yeti-content-area { margin-left: calc(50% - 289px); padding: 82.5px 82.5px 0; }
+    .yeti-main, .yeti-footer { max-width: 825px; width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
