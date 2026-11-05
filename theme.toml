@@ -1,6 +1,6 @@
 name = "Blogu' lu' Yeti"
 slug = "yeti"
-version = "0.2.2"
+version = "0.2.3"
 description = "Tema site-ului personal yeti.albascout.ro: bară laterală cu logo, fundal închis, articole pe carduri albe (după Twenty Fifteen)."
 author = "Andrei Avram"
 homepage = "https://github.com/YetiLabsRO/volunhub-theme-yeti"
